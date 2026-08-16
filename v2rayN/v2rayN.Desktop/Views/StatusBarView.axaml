@@ -1,0 +1,96 @@
+﻿<UserControl
+    x:Class="v2rayN.Desktop.Views.StatusBarView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="clr-namespace:v2rayN.Desktop.DesignData"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
+    xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
+    x:DataType="vms:StatusBarViewModel"
+    Design.DataContext="{x:Static dd:DesignData.StatusBar}"
+    mc:Ignorable="d">
+    <Border
+        Background="{DynamicResource SemiColorFill1}"
+        BorderBrush="{DynamicResource SemiColorBorder}"
+        BorderThickness="0,1,0,0">
+        <DockPanel Margin="12,7">
+
+            <!-- ===== 右侧：速度 ===== -->
+            <StackPanel
+                Margin="{StaticResource MarginLr8}"
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="8"
+                DockPanel.Dock="Right">
+                <Border Classes="ChipPrimary">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <PathIcon
+                            Width="14"
+                            Height="14"
+                            VerticalAlignment="Center"
+                            Data="{StaticResource SemiIconBolt}"
+                            Foreground="{DynamicResource SemiColorPrimary}" />
+                        <TextBlock x:Name="txtSpeedProxyDisplay" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+                <Border Classes="Chip">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <PathIcon
+                            Width="14"
+                            Height="14"
+                            VerticalAlignment="Center"
+                            Data="{StaticResource SemiIconPulse}" />
+                        <TextBlock x:Name="txtSpeedDirectDisplay" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- ===== 左侧：当前服务器 + 入站监听 ===== -->
+            <StackPanel
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="8"
+                DockPanel.Dock="Left">
+                <!-- 当前服务器 -->
+                <Border Classes="ChipPrimary">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Border
+                            Classes="StatusDot"
+                            Background="{DynamicResource SemiColorSuccess}" />
+                        <StackPanel>
+                            <TextBlock
+                                x:Name="txtRunningServerDisplay"
+                                FontWeight="SemiBold"
+                                VerticalAlignment="Center" />
+                            <TextBlock
+                                x:Name="txtRunningInfoDisplay"
+                                FontSize="11"
+                                Foreground="{DynamicResource SemiColorText2}"
+                                VerticalAlignment="Center" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- 入站监听 -->
+                <Border Classes="Chip">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon
+                            Width="14"
+                            Height="14"
+                            VerticalAlignment="Center"
+                            Data="{StaticResource SemiIconLink}" />
+                        <StackPanel>
+                            <TextBlock x:Name="txtInboundDisplay" VerticalAlignment="Center" />
+                            <TextBlock
+                                x:Name="txtInboundLanDisplay"
+                                FontSize="11"
+                                Foreground="{DynamicResource SemiColorText2}"
+                                VerticalAlignment="Center" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </DockPanel>
+    </Border>
+</UserControl>

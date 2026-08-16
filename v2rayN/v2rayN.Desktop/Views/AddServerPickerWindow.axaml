@@ -1,0 +1,114 @@
+﻿<Window
+    x:Class="v2rayN.Desktop.Views.AddServerPickerWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="clr-namespace:v2rayN.Desktop.DesignData"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
+    xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
+    Title="{x:Static resx:ResUI.AddItemPickerTitle}"
+    Width="460"
+    Height="400"
+    MinWidth="420"
+    MinHeight="320"
+    x:DataType="vms:AddServerPickerViewModel"
+    ShowInTaskbar="False"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <DockPanel Margin="20">
+        <StackPanel
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            DockPanel.Dock="Bottom"
+            Orientation="Horizontal"
+            Spacing="10">
+            <Button
+                x:Name="btnOk"
+                Width="100"
+                Classes="Primary"
+                Content="{x:Static resx:ResUI.TbConfirm}"
+                IsDefault="True" />
+            <Button
+                x:Name="btnCancel"
+                Width="100"
+                Content="{x:Static resx:ResUI.TbCancel}"
+                IsCancel="True" />
+        </StackPanel>
+
+        <StackPanel Spacing="16">
+            <TextBlock
+                FontSize="18"
+                FontWeight="SemiBold"
+                Text="{x:Static resx:ResUI.AddItemPickerTitle}" />
+
+            <!-- 类型 -->
+            <Grid ColumnDefinitions="70,*">
+                <TextBlock
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Text="{x:Static resx:ResUI.LabServer}" />
+                <ComboBox
+                    x:Name="cmbAddType"
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    DisplayMemberBinding="{Binding Text}"
+                    ItemsSource="{Binding AddTypes}"
+                    SelectedItem="{Binding SelectedAddType, Mode=TwoWay}" />
+            </Grid>
+            <!-- 协议 -->
+            <Grid
+                ColumnDefinitions="70,*"
+                IsVisible="{Binding !IsSubscription}">
+                <TextBlock
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Text="{x:Static resx:ResUI.LabProtocol}" />
+                <ComboBox
+                    x:Name="cmbConfigType"
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    DisplayMemberBinding="{Binding Text}"
+                    ItemsSource="{Binding ConfigTypes}"
+                    SelectedItem="{Binding SelectedConfigType, Mode=TwoWay}" />
+            </Grid>
+
+            <!-- 名称 -->
+            <Grid ColumnDefinitions="70,*">
+                <TextBlock
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Text="{x:Static resx:ResUI.LabRemarks}" />
+                <TextBox
+                    x:Name="txtRemarks"
+                    Grid.Column="1"
+                    PlaceholderText="{x:Static resx:ResUI.LabRemarks}"
+                    Text="{Binding Remarks, Mode=TwoWay}" />
+            </Grid>
+
+            <!-- 分享链接 -->
+            <Grid ColumnDefinitions="70,*">
+                <TextBlock
+                    Grid.Column="0"
+                    VerticalAlignment="Top"
+                    Text="{x:Static resx:ResUI.LabShareLink}" />
+                <TextBox
+                    x:Name="txtShareLink"
+                    Grid.Column="1"
+                    MinHeight="90"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    PlaceholderText="订阅链接 或 vmess://  vless://  ss://  trojan://  ..."
+                    Text="{Binding ShareLink, Mode=TwoWay}" />
+            </Grid>
+
+            <TextBlock
+                FontSize="12"
+                Foreground="{DynamicResource SemiColorText2}"
+                TextWrapping="Wrap"
+                Text="{x:Static resx:ResUI.AddItemPickerTip}" />
+        </StackPanel>
+    </DockPanel>
+</Window>
+
+

@@ -1,0 +1,157 @@
+﻿<UserControl
+    x:Class="v2rayN.Desktop.Views.SettingsView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
+    xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
+    xmlns:local="clr-namespace:v2rayN.Desktop.Views"
+    d:DesignHeight="700"
+    d:DesignWidth="900"
+    x:DataType="vms:MainWindowViewModel"
+    mc:Ignorable="d">
+    <ScrollViewer>
+        <StackPanel
+            Margin="28,24"
+            MaxWidth="720"
+            HorizontalAlignment="Left"
+            Spacing="18">
+
+            <StackPanel Spacing="2">
+                <TextBlock
+                    FontSize="26"
+                    FontWeight="Bold"
+                    Text="{x:Static resx:ResUI.menuSetting}" />
+                <TextBlock
+                    FontSize="13"
+                    Foreground="{DynamicResource SemiColorText2}"
+                    Text="{x:Static resx:ResUI.HomeOverviewTip}" />
+            </StackPanel>
+
+            <!-- ===== 通用 ===== -->
+            <StackPanel Spacing="8">
+                <TextBlock Classes="SectionTitle" Text="{x:Static resx:ResUI.MsgCommonTitle}" />
+                <Border Classes="Card">
+                    <StackPanel Spacing="4">
+                        <Button x:Name="btnOptionSetting" Classes="NavRow" Command="{Binding OptionSettingCmd}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <PathIcon Data="{StaticResource SemiIconSetting}" />
+                                <TextBlock Text="{x:Static resx:ResUI.menuOptionSetting}" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            x:Name="btnHotkey"
+                            Classes="NavRow"
+                            Command="{Binding GlobalHotkeySettingCmd}"
+                            IsVisible="{Binding BlIsWindows}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <PathIcon Data="{StaticResource SemiIconKey}" />
+                                <TextBlock Text="{x:Static resx:ResUI.menuGlobalHotkeySetting}" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btnBackupAndRestore" Classes="NavRow">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <PathIcon Data="{StaticResource SemiIconCloud}" />
+                                <TextBlock Text="{x:Static resx:ResUI.menuBackupAndRestore}" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btnOpenLocation" Classes="NavRow" Command="{Binding OpenTheFileLocationCmd}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <PathIcon Data="{StaticResource SemiIconFolder}" />
+                                <TextBlock Text="{x:Static resx:ResUI.menuOpenTheFileLocation}" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btnClearStats" Classes="NavRow" Command="{Binding ClearServerStatisticsCmd}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <PathIcon Data="{StaticResource SemiIconDelete}" />
+                                <TextBlock Text="{x:Static resx:ResUI.menuClearServerStatistics}" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- ===== 外观 ===== -->
+            <StackPanel Spacing="8">
+                <TextBlock Classes="SectionTitle" Text="{x:Static resx:ResUI.MsgAppearanceTitle}" />
+                <Border Classes="Card">
+                    <StackPanel Spacing="4">
+                        <local:ThemeSettingView />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+            <!-- ===== 网络 ===== -->
+            <StackPanel Spacing="8">
+                <TextBlock Classes="SectionTitle" Text="{x:Static resx:ResUI.MsgNetworkTitle}" />
+                <Border Classes="Card">
+                    <StackPanel Spacing="4">
+                        <Button x:Name="btnRoutingSetting" Classes="NavRow" Command="{Binding RoutingSettingCmd}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <PathIcon Data="{StaticResource SemiIconGlobe}" />
+                                <TextBlock Text="{x:Static resx:ResUI.menuRoutingSetting}" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btnDNSSetting" Classes="NavRow" Command="{Binding DNSSettingCmd}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <PathIcon Data="{StaticResource SemiIconLayers}" />
+                                <TextBlock Text="{x:Static resx:ResUI.menuDNSSetting}" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- ===== 高级 ===== -->
+            <StackPanel Spacing="8">
+                <TextBlock Classes="SectionTitle" Text="{x:Static resx:ResUI.MsgAdvancedTitle}" />
+                <Border Classes="Card">
+                    <StackPanel Spacing="4">
+                        <Button x:Name="btnFullConfig" Classes="NavRow" Command="{Binding FullConfigTemplateCmd}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <PathIcon Data="{StaticResource SemiIconSave}" />
+                                <TextBlock Text="{x:Static resx:ResUI.menuFullConfigTemplate}" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btnUWP" Classes="NavRow" IsVisible="{Binding BlIsWindows}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <PathIcon Data="{StaticResource SemiIconShield}" />
+                                <TextBlock Text="{x:Static resx:ResUI.TbSettingsSetUWP}" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- ===== 帮助 / 其他 ===== -->
+            <StackPanel Spacing="8">
+                <TextBlock Classes="SectionTitle" Text="{x:Static resx:ResUI.menuHelp}" />
+                <Border Classes="Card">
+                    <StackPanel Spacing="4">
+<Button x:Name="btnRebootAsAdmin" Classes="NavRow" Command="{Binding RebootAsAdminCmd}" IsVisible="{Binding BlIsWindows}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <PathIcon Data="{StaticResource SemiIconShield}" />
+                                <TextBlock Text="{x:Static resx:ResUI.menuRebootAsAdmin}" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btnReload" Classes="NavRow" Command="{Binding ReloadCmd}" IsEnabled="{Binding BlReloadEnabled}">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <PathIcon Data="{StaticResource SemiIconRestart}" />
+                                <TextBlock Text="{x:Static resx:ResUI.menuReload}" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btnExit" Classes="NavRow">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <PathIcon Data="{StaticResource SemiIconClose}" />
+                                <TextBlock Text="{x:Static resx:ResUI.menuExit}" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
+
+
+

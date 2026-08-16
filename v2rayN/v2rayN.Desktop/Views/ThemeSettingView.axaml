@@ -1,0 +1,39 @@
+﻿<UserControl
+    x:Class="v2rayN.Desktop.Views.ThemeSettingView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
+    xmlns:vms="clr-namespace:v2rayN.Desktop.ViewModels">
+    <StackPanel Spacing="12">
+        <Grid ColumnDefinitions="80,*">
+            <TextBlock
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Text="{x:Static resx:ResUI.TbSettingsTheme}" />
+            <ComboBox
+                x:Name="cmbCurrentTheme"
+                Grid.Column="1"
+                HorizontalAlignment="Stretch" />
+        </Grid>
+        <Grid ColumnDefinitions="80,*">
+            <TextBlock
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Text="{x:Static resx:ResUI.TbSettingsFontSize}" />
+            <ComboBox
+                x:Name="cmbCurrentFontSize"
+                Grid.Column="1"
+                HorizontalAlignment="Stretch" />
+        </Grid>
+        <Grid ColumnDefinitions="80,*">
+            <TextBlock
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Text="{x:Static resx:ResUI.TbSettingsLanguage}" />
+            <ComboBox
+                x:Name="cmbCurrentLanguage"
+                Grid.Column="1"
+                HorizontalAlignment="Stretch" />
+        </Grid>
+    </StackPanel>
+</UserControl>

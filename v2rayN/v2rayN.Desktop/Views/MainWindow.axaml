@@ -1,0 +1,192 @@
+﻿<Window
+    x:Class="v2rayN.Desktop.Views.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="clr-namespace:v2rayN.Desktop.DesignData"
+    xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
+    xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
+    Title="DMPv2ray"
+    Width="1200"
+    Height="800"
+    MinWidth="600"
+    x:DataType="vms:MainWindowViewModel"
+    Design.DataContext="{x:Static dd:DesignData.MainWindow}"
+    Icon="/Assets/NotifyIcon1.ico"
+    ShowInTaskbar="True"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <dialogHost:DialogHost CloseOnClickAway="True" DisableOpeningAnimation="True">
+        <DockPanel>
+            <Grid>
+                <Grid
+                    x:Name="gridMain"
+                    ColumnDefinitions="1*,10,1*"
+                    IsVisible="False">
+                    <ContentControl x:Name="tabProfiles" Grid.Column="0" />
+                    <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
+                    <TabControl
+                        x:Name="tabMain"
+                        Grid.Column="2"
+                        HorizontalContentAlignment="Left">
+                        <TabItem x:Name="tabMsgView" Header="{x:Static resx:ResUI.MsgInformationTitle}" />
+                        <TabItem x:Name="tabClashProxies" Header="{x:Static resx:ResUI.TbProxies}" />
+                        <TabItem x:Name="tabClashConnections" Header="{x:Static resx:ResUI.TbConnections}" />
+                    </TabControl>
+                </Grid>
+                <Grid
+                    x:Name="gridMain1"
+                    IsVisible="False"
+                    RowDefinitions="1*,10,1*">
+                    <ContentControl x:Name="tabProfiles1" Grid.Row="0" />
+                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" />
+                    <TabControl
+                        x:Name="tabMain1"
+                        Grid.Row="2"
+                        TabStripPlacement="Left">
+                        <TabItem x:Name="tabMsgView1" Header="{x:Static resx:ResUI.MsgInformationTitle}" />
+                        <TabItem x:Name="tabClashProxies1" Header="{x:Static resx:ResUI.TbProxies}" />
+                        <TabItem x:Name="tabClashConnections1" Header="{x:Static resx:ResUI.TbConnections}" />
+                    </TabControl>
+                </Grid>
+
+                <!-- ===================== 现代侧边栏布局（默认） ===================== -->
+                <Grid
+                    x:Name="gridMain2"
+                    ColumnDefinitions="212,*"
+                    IsVisible="False">
+                    <!-- 侧边栏 -->
+                    <Border
+                        Grid.Column="0"
+                        Background="{DynamicResource SemiColorFill2}"
+                        BorderBrush="{DynamicResource SemiColorBorder}"
+                        BorderThickness="0,0,1,0">
+                        <Border.Styles>
+                            <Style Selector="ListBoxItem">
+                                <Setter Property="Height" Value="44" />
+                                <Setter Property="MinHeight" Value="44" />
+                                <Setter Property="Margin" Value="4,3" />
+                                <Setter Property="Padding" Value="12,0" />
+                                <Setter Property="FontSize" Value="14" />
+                                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            </Style>
+                            <Style Selector="ListBoxItem PathIcon">
+                                <Setter Property="Width" Value="18" />
+                                <Setter Property="Height" Value="18" />
+                            </Style>
+                            <Style Selector="ListBoxItem TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </Border.Styles>
+                        <DockPanel>
+                            <!-- 品牌 -->
+                            <StackPanel
+                                Margin="16,18,16,14"
+                                Orientation="Horizontal"
+                                Spacing="10"
+                                DockPanel.Dock="Top">
+                                <Border
+                                    Width="30"
+                                    Height="30"
+                                    CornerRadius="9"
+                                    Background="{DynamicResource SemiColorPrimaryContainer}">
+                                    <Image
+                                        Width="22"
+                                        Height="22"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Source="avares://DMPv2ray/v2rayN.png" />
+                                </Border>
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    FontWeight="Bold"
+                                    Text="v2rayN" />
+                            </StackPanel>
+
+                            <!-- 导航 -->
+                            <ListBox
+                                x:Name="lstSidebarNav"
+                                Margin="10,4,10,10"
+                                Background="Transparent"
+                                BorderThickness="0">
+                                <ListBoxItem x:Name="navHome" Height="44">
+                                    <StackPanel Orientation="Horizontal" Spacing="12">
+                                        <PathIcon Data="{StaticResource SemiIconHome}" />
+                                        <TextBlock Text="{x:Static resx:ResUI.MenuHome}" />
+                                    </StackPanel>
+                                </ListBoxItem>
+                                <ListBoxItem x:Name="navProfiles" Height="44">
+                                    <StackPanel Orientation="Horizontal" Spacing="12">
+                                        <PathIcon Data="{StaticResource SemiIconServer}" />
+                                        <TextBlock Text="{x:Static resx:ResUI.TbProxies}" />
+                                    </StackPanel>
+                                </ListBoxItem>
+                                <ListBoxItem x:Name="navSubscription" Height="44">
+                                    <StackPanel Orientation="Horizontal" Spacing="12">
+                                        <PathIcon Data="{StaticResource SemiIconBookmark}" />
+                                        <TextBlock Text="{x:Static resx:ResUI.MenuSubManage}" />
+                                    </StackPanel>
+                                </ListBoxItem>
+                                <ListBoxItem x:Name="navRouting" Height="44">
+                                    <StackPanel Orientation="Horizontal" Spacing="12">
+                                        <PathIcon Data="{StaticResource SemiIconGlobe}" />
+                                        <TextBlock Text="{x:Static resx:ResUI.MenuRulePage}" />
+                                    </StackPanel>
+                                </ListBoxItem>
+                                <ListBoxItem x:Name="navConnections" Height="44">
+                                    <StackPanel Orientation="Horizontal" Spacing="12">
+                                        <PathIcon Data="{StaticResource SemiIconGlobe}" />
+                                        <TextBlock Text="{x:Static resx:ResUI.TbConnections}" />
+                                    </StackPanel>
+                                </ListBoxItem>
+                                <ListBoxItem x:Name="navMsg" Height="44">
+                                    <StackPanel Orientation="Horizontal" Spacing="12">
+                                        <PathIcon Data="{StaticResource SemiIconList}" />
+                                        <TextBlock Text="{x:Static resx:ResUI.MsgInformationTitle}" />
+                                    </StackPanel>
+                                </ListBoxItem>
+                                <ListBoxItem x:Name="navSettings" Height="44">
+                                    <StackPanel Orientation="Horizontal" Spacing="12">
+                                        <PathIcon Data="{StaticResource SemiIconSetting}" />
+                                        <TextBlock Text="{x:Static resx:ResUI.menuSetting}" />
+                                    </StackPanel>
+                                </ListBoxItem>
+                            </ListBox>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- 内容区 -->
+                    <Grid Grid.Column="1">
+                        <ContentControl x:Name="contentHome2" />
+                        <ContentControl x:Name="contentProfiles2" />
+                        <ContentControl x:Name="contentSubscription2" />
+                        <ContentControl x:Name="contentRouting2" />
+                        <ContentControl x:Name="contentConnections2" />
+                        <ContentControl x:Name="contentMsg2" />
+                        <ContentControl x:Name="contentSettings2" />
+                    </Grid>
+                </Grid>
+            </Grid>
+        </DockPanel>
+    </dialogHost:DialogHost>
+</Window>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

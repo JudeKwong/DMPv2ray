@@ -1,0 +1,103 @@
+﻿<Window
+    x:Class="v2rayN.Desktop.Views.RoutingRuleDetailsWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="clr-namespace:v2rayN.Desktop.DesignData"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
+    xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
+    Title="{x:Static resx:ResUI.menuRoutingRuleDetailsSetting}"
+    Width="480"
+    Height="380"
+    MinWidth="440"
+    MinHeight="340"
+    x:DataType="vms:RoutingRuleDetailsViewModel"
+    Design.DataContext="{x:Static dd:DesignData.RoutingRuleDetails}"
+    ShowInTaskbar="False"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <DockPanel Margin="20">
+        <StackPanel
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            DockPanel.Dock="Bottom"
+            Orientation="Horizontal"
+            Spacing="10">
+            <Button
+                x:Name="btnSave"
+                Width="100"
+                Classes="Primary"
+                Content="{x:Static resx:ResUI.TbConfirm}"
+                IsDefault="True" />
+            <Button
+                x:Name="btnCancel"
+                Width="100"
+                Content="{x:Static resx:ResUI.TbCancel}"
+                IsCancel="True" />
+        </StackPanel>
+
+        <StackPanel Spacing="16">
+            <TextBlock
+                FontSize="18"
+                FontWeight="SemiBold"
+                Text="{x:Static resx:ResUI.menuRuleAdd}" />
+
+            <!-- 网站名称（可选） -->
+            <Grid ColumnDefinitions="90,*">
+                <TextBlock
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Text="{x:Static resx:ResUI.RuleWebsiteName}" />
+                <TextBox
+                    x:Name="txtRemarks"
+                    Grid.Column="1"
+                    PlaceholderText="{x:Static resx:ResUI.RuleWebsiteName}"
+                    Text="{Binding Remarks, Mode=TwoWay}" />
+            </Grid>
+
+            <!-- 网站域名 -->
+            <Grid ColumnDefinitions="90,*">
+                <TextBlock
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Text="{x:Static resx:ResUI.RuleDomain}" />
+                <TextBox
+                    x:Name="txtDomain"
+                    Grid.Column="1"
+                    PlaceholderText="google.com"
+                    Text="{Binding Domain, Mode=TwoWay}" />
+            </Grid>
+
+            <!-- 规则类型 -->
+            <Grid ColumnDefinitions="90,*">
+                <TextBlock
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Text="{x:Static resx:ResUI.RuleMatchType}" />
+                <ComboBox
+                    x:Name="cmbMatchType"
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    DisplayMemberBinding="{Binding Text}"
+                    ItemsSource="{Binding MatchTypes}"
+                    SelectedItem="{Binding SelectedMatchType, Mode=TwoWay}" />
+            </Grid>
+
+            <!-- 代理策略 -->
+            <Grid ColumnDefinitions="90,*">
+                <TextBlock
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Text="{x:Static resx:ResUI.RulePolicy}" />
+                <ComboBox
+                    x:Name="cmbPolicy"
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    DisplayMemberBinding="{Binding Text}"
+                    ItemsSource="{Binding Policies}"
+                    SelectedItem="{Binding SelectedPolicy, Mode=TwoWay}" />
+            </Grid>
+        </StackPanel>
+    </DockPanel>
+</Window>

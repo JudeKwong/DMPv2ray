@@ -1,0 +1,190 @@
+﻿<UserControl
+    x:Class="v2rayN.Desktop.Views.RoutingView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
+    xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
+    xmlns:md="clr-namespace:ServiceLib.Models.Dto;assembly=ServiceLib"
+    d:DesignHeight="700"
+    d:DesignWidth="1100">
+    <DockPanel>
+        <!-- ===== 顶部：域名策略 + 规则集操作 ===== -->
+        <Border
+            DockPanel.Dock="Top"
+            Padding="10,8"
+            Background="{DynamicResource SemiColorFill1}"
+            BorderBrush="{DynamicResource SemiColorBorder}"
+            BorderThickness="0,0,0,1">
+            <WrapPanel>
+                <TextBlock
+                    Margin="0,0,6,0"
+                    VerticalAlignment="Center"
+                    Text="{x:Static resx:ResUI.TbdomainStrategy}" />
+                <ComboBox
+                    x:Name="cmbDomainStrategy"
+                    Width="150"
+                    Margin="0,0,12,0"
+                    VerticalAlignment="Center" />
+                <TextBlock
+                    Margin="0,0,6,0"
+                    VerticalAlignment="Center"
+                    Text="{x:Static resx:ResUI.TbdomainStrategy4Singbox}" />
+                <ComboBox
+                    x:Name="cmbDomainStrategy4Singbox"
+                    Width="150"
+                    Margin="0,0,12,0"
+                    VerticalAlignment="Center" />
+                <Button
+                    x:Name="btnRoutingAdd"
+                    Margin="0,0,8,0"
+                    Classes="Primary"
+                    Content="{x:Static resx:ResUI.menuRoutingAdvancedAdd}" />
+                <Button
+                    x:Name="btnRoutingRemove"
+                    Margin="0,0,8,0"
+                    Content="{x:Static resx:ResUI.menuRoutingAdvancedRemove}" />
+                <Button
+                    x:Name="btnRoutingSetDefault"
+                    Margin="0,0,8,0"
+                    Content="{x:Static resx:ResUI.menuRoutingAdvancedSetDefault}" />
+                <Button
+                    x:Name="btnRoutingImport"
+                    Margin="0,0,8,0"
+                    Content="{x:Static resx:ResUI.menuRoutingAdvancedImportRules}" />
+            </WrapPanel>
+        </Border>
+
+        <Grid ColumnDefinitions="320,10,*">
+            <!-- ===== 左：规则集列表 ===== -->
+            <Border
+                Grid.Column="0"
+                Margin="10,8,0,10"
+                Background="{DynamicResource SemiColorFill1}"
+                BorderBrush="{DynamicResource SemiColorBorder}"
+                BorderThickness="1"
+                CornerRadius="10"
+                Padding="6">
+                <DockPanel>
+                    <TextBlock
+                        DockPanel.Dock="Top"
+                        Margin="6,6,6,4"
+                        Classes="SectionTitle"
+                        Text="{x:Static resx:ResUI.TbRoutingTabRuleList}" />
+                    <DataGrid
+                        x:Name="lstRoutings"
+                        x:DataType="md:RoutingItemModel"
+                        AutoGenerateColumns="False"
+                        BorderThickness="0"
+                        CanUserResizeColumns="True"
+                        GridLinesVisibility="Horizontal"
+                        HeadersVisibility="Column"
+                        IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn
+                                Width="36"
+                                IsReadOnly="True"
+                                Binding="{Binding IsActive}" />
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding Remarks}"
+                                Header="{x:Static resx:ResUI.LvRemarks}" />
+                            <DataGridTextColumn
+                                Width="60"
+                                Binding="{Binding RuleNum}"
+                                Header="{x:Static resx:ResUI.LvCount}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Border>
+
+            <!-- ===== 右：规则列表 ===== -->
+            <Grid Grid.Column="2" Margin="0,8,10,10">
+                <DockPanel>
+                    <Border
+                        DockPanel.Dock="Top"
+                        Padding="4,6"
+                        Background="{DynamicResource SemiColorFill1}"
+                        BorderBrush="{DynamicResource SemiColorBorder}"
+                        BorderThickness="0,0,0,1">
+                        <WrapPanel>
+                            <TextBlock
+                                Margin="6,0,10,0"
+                                VerticalAlignment="Center"
+                                Classes="SectionTitle"
+                                Text="{x:Static resx:ResUI.menuRuleList}" />
+                            <Button
+                                x:Name="btnRuleAdd"
+                                Margin="0,0,8,0"
+                                Classes="Primary"
+                                Content="{x:Static resx:ResUI.menuRuleAdd}" />
+                            <Button
+                                x:Name="btnRuleRemove"
+                                Margin="0,0,8,0"
+                                Content="{x:Static resx:ResUI.menuRuleRemove}" />
+                            <Button
+                                x:Name="btnRuleUp"
+                                Margin="0,0,4,0"
+                                Content="{x:Static resx:ResUI.menuMoveUp}" />
+                            <Button
+                                x:Name="btnRuleDown"
+                                Margin="0,0,12,0"
+                                Content="{x:Static resx:ResUI.menuMoveDown}" />
+                            <Button
+                                x:Name="btnRuleImportFile"
+                                Margin="0,0,4,0"
+                                Content="{x:Static resx:ResUI.menuImportRulesFromFile}" />
+                            <Button
+                                x:Name="btnRuleImportClipboard"
+                                Margin="0,0,4,0"
+                                Content="{x:Static resx:ResUI.menuImportRulesFromClipboard}" />
+                            <Button
+                                x:Name="btnRuleImportUrl"
+                                Margin="0,0,8,0"
+                                Content="{x:Static resx:ResUI.menuImportRulesFromUrl}" />
+                        </WrapPanel>
+                    </Border>
+                    <DataGrid
+                        x:Name="lstRules"
+                        x:DataType="md:RulesItemModel"
+                        AutoGenerateColumns="False"
+                        BorderThickness="1"
+                        CanUserResizeColumns="True"
+                        GridLinesVisibility="Horizontal"
+                        HeadersVisibility="Column"
+                        IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn
+                                Width="36"
+                                IsReadOnly="True"
+                                Binding="{Binding Enabled}" />
+                            <DataGridTextColumn
+                                Width="90"
+                                Binding="{Binding OutboundTag}"
+                                Header="{x:Static resx:ResUI.TbOutbound}" />
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding Domains}"
+                                Header="{x:Static resx:ResUI.LvMatchRule}" />
+                            <DataGridTextColumn
+                                Width="80"
+                                Binding="{Binding Port}"
+                                Header="{x:Static resx:ResUI.LvPort}" />
+                            <DataGridTextColumn
+                                Width="90"
+                                Binding="{Binding RuleTypeName}"
+                                Header="{x:Static resx:ResUI.TbRuleType}" />
+                            <DataGridTextColumn
+                                Width="120"
+                                Binding="{Binding Remarks}"
+                                Header="{x:Static resx:ResUI.LvRemarks}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</UserControl>
+
+
+

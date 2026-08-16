@@ -1,0 +1,151 @@
+﻿<UserControl
+    x:Class="v2rayN.Desktop.Views.HomeView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="clr-namespace:v2rayN.Desktop.DesignData"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
+    xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
+    d:DesignHeight="600"
+    d:DesignWidth="900"
+    x:DataType="vms:StatusBarViewModel"
+    Design.DataContext="{x:Static dd:DesignData.StatusBar}"
+    mc:Ignorable="d">
+    <ScrollViewer>
+        <StackPanel
+            Margin="28,24"
+            MaxWidth="780"
+            HorizontalAlignment="Left"
+            Spacing="16">
+
+            <!-- 标题 -->
+            <StackPanel Spacing="2">
+                <TextBlock
+                    FontSize="26"
+                    FontWeight="Bold"
+                    Text="{x:Static resx:ResUI.MenuHome}" />
+                <TextBlock
+                    FontSize="13"
+                    Foreground="{DynamicResource SemiColorText2}"
+                    Text="{x:Static resx:ResUI.HomeOverviewTip}" />
+            </StackPanel>
+
+            <!-- ===== 当前节点卡片 ===== -->
+            <Border Classes="Card">
+                <StackPanel Spacing="10">
+                    <TextBlock Classes="SectionTitle" Text="{x:Static resx:ResUI.LabRunning}" />
+                    <TextBlock
+                        x:Name="txtRunningServerDisplay"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        TextWrapping="Wrap"
+                        Text="{Binding RunningServerDisplay}" />
+                    <!-- 连接状态：独立一行，避免与节点名重叠 -->
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Border
+                            Width="10"
+                            Height="10"
+                            VerticalAlignment="Center"
+                            CornerRadius="5"
+                            Background="{DynamicResource SemiColorSuccess}" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            Foreground="{DynamicResource SemiColorText2}"
+                            Text="{x:Static resx:ResUI.HomeConnected}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 当前节点延迟 ===== -->
+            <Border Classes="Card">
+                <StackPanel Spacing="8">
+                    <TextBlock Classes="SectionTitle" Text="{x:Static resx:ResUI.LabNodeDelay}" />
+                    <TextBlock
+                        x:Name="txtRunningInfoDisplay"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        TextWrapping="Wrap"
+                        Foreground="{DynamicResource SemiColorPrimary}"
+                        Text="{Binding RunningInfoDisplay}" />
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 本地监听 ===== -->
+            <Border Classes="Card">
+                <StackPanel Spacing="8">
+                    <TextBlock Classes="SectionTitle" Text="{x:Static resx:ResUI.LabInbound}" />
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <PathIcon
+                            Width="16"
+                            Height="16"
+                            VerticalAlignment="Center"
+                            Data="{StaticResource SemiIconLink}" />
+                        <TextBlock
+                            x:Name="txtInboundDisplay"
+                            VerticalAlignment="Center"
+                            Text="{Binding InboundDisplay}" />
+                        <TextBlock
+                            x:Name="txtInboundLanDisplay"
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            Foreground="{DynamicResource SemiColorText2}"
+                            Text="{Binding InboundLanDisplay}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 快速设置（从底部工具栏移入） ===== -->
+            <Border Classes="Card">
+                <StackPanel Spacing="14">
+                    <!-- 系统代理 -->
+                    <Grid ColumnDefinitions="Auto,1*,Auto">
+                        <TextBlock
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="{x:Static resx:ResUI.menuSystemproxy}" />
+                        <ComboBox
+                            x:Name="cmbSystemProxy"
+                            Grid.Column="2"
+                            Width="170"
+                            SelectedIndex="{Binding SystemProxySelected, Mode=TwoWay}">
+                            <ComboBoxItem Content="{x:Static resx:ResUI.menuSystemProxyClear}" />
+                            <ComboBoxItem Content="{x:Static resx:ResUI.menuSystemProxySet}" />
+                            <ComboBoxItem Content="{x:Static resx:ResUI.menuSystemProxyNothing}" />
+                            <ComboBoxItem Content="{x:Static resx:ResUI.menuSystemProxyPac}" />
+                        </ComboBox>
+                    </Grid>
+
+                    <!-- 路由 -->
+                    <Grid ColumnDefinitions="Auto,1*,Auto">
+                        <TextBlock
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="{x:Static resx:ResUI.menuRouting}" />
+                        <ComboBox
+                            x:Name="cmbRoutings"
+                            Grid.Column="2"
+                            Width="200"
+                            DisplayMemberBinding="{Binding Remarks}"
+                            ItemsSource="{Binding RoutingItems}"
+                            SelectedItem="{Binding SelectedRouting, Mode=TwoWay}" />
+                    </Grid>
+
+                    <!-- TUN -->
+                    <Grid ColumnDefinitions="Auto,1*,Auto">
+                        <TextBlock
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="{x:Static resx:ResUI.TbEnableTunAs}" />
+                        <ToggleSwitch
+                            Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            IsChecked="{Binding EnableTun, Mode=TwoWay}"
+                            Theme="{DynamicResource SimpleToggleSwitch}" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
