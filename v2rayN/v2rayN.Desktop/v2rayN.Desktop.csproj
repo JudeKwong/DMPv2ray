@@ -58,7 +58,7 @@
 	</ItemGroup>
 
 
-    <Target Name="CopyNativeLibraries" AfterTargets="Publish">
+    <Target Name="CopyNativeLibraries" AfterTargets="Publish" Condition="'$(RuntimeIdentifier)' == '' or '$(RuntimeIdentifier)' == 'win-x64' or '$(RuntimeIdentifier)' == 'win-arm64' or '$(RuntimeIdentifier)' == 'win-x86'">
         <Copy
             SourceFiles="$(TargetDir)e_sqlite3.dll;$(TargetDir)av_libglesv2.dll;$(TargetDir)libSkiaSharp.dll;$(TargetDir)libHarfBuzzSharp.dll;$(TargetDir)v2rayN.icns;$(TargetDir)v2rayN.png"
             DestinationFolder="$(PublishDir)"
