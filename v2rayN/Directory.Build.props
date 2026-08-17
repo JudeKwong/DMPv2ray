@@ -1,7 +1,9 @@
-<Project>
+﻿<Project>
 
     <PropertyGroup>
-        <Version>7.24.7</Version>
+        <Version>1.0.1</Version>
+        <InformationalVersion>1.0.1beta1</InformationalVersion>
+        <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     </PropertyGroup>
 
     <PropertyGroup>
