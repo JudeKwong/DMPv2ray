@@ -3187,6 +3187,120 @@ namespace ServiceLib.Resx {
             }
         }
         
+        public static string HomeAutoRun {
+            get {
+                return ResourceManager.GetString("HomeAutoRun", resourceCulture);
+            }
+        }
+        
+        public static string FavOperate {
+            get {
+                return ResourceManager.GetString("FavOperate", resourceCulture);
+            }
+        }
+        
+        public static string Favorites {
+            get {
+                return ResourceManager.GetString("Favorites", resourceCulture);
+            }
+        }
+        
+        public static string FavOnly {
+            get {
+                return ResourceManager.GetString("FavOnly", resourceCulture);
+            }
+        }
+        public static string LowLatencySwitch {
+            get {
+                return ResourceManager.GetString("LowLatencySwitch", resourceCulture);
+            }
+        }
+        public static string LowLatencySwitchNotEnabled {
+            get {
+                return ResourceManager.GetString("LowLatencySwitchNotEnabled", resourceCulture);
+            }
+        }
+        public static string LowLatencySwitchInvalidThreshold {
+            get {
+                return ResourceManager.GetString("LowLatencySwitchInvalidThreshold", resourceCulture);
+            }
+        }
+        public static string LowLatencySwitchTesting {
+            get {
+                return ResourceManager.GetString("LowLatencySwitchTesting", resourceCulture);
+            }
+        }
+        public static string LowLatencySwitchNoDelay {
+            get {
+                return ResourceManager.GetString("LowLatencySwitchNoDelay", resourceCulture);
+            }
+        }
+        public static string LowLatencySwitchNormal {
+            get {
+                return ResourceManager.GetString("LowLatencySwitchNormal", resourceCulture);
+            }
+        }
+        public static string LowLatencySwitchUpdatingSub {
+            get {
+                return ResourceManager.GetString("LowLatencySwitchUpdatingSub", resourceCulture);
+            }
+        }
+        public static string LowLatencySwitchTestingAll {
+            get {
+                return ResourceManager.GetString("LowLatencySwitchTestingAll", resourceCulture);
+            }
+        }
+        public static string LowLatencySwitchNoValidNode {
+            get {
+                return ResourceManager.GetString("LowLatencySwitchNoValidNode", resourceCulture);
+            }
+        }
+        public static string LowLatencySwitchConfirm {
+            get {
+                return ResourceManager.GetString("LowLatencySwitchConfirm", resourceCulture);
+            }
+        }
+        public static string LowLatencySwitchDone {
+            get {
+                return ResourceManager.GetString("LowLatencySwitchDone", resourceCulture);
+            }
+        }
+        public static string TbSettingsLowLatencySwitch {
+            get {
+                return ResourceManager.GetString("TbSettingsLowLatencySwitch", resourceCulture);
+            }
+        }
+        public static string TbSettingsLowLatencySwitchTip {
+            get {
+                return ResourceManager.GetString("TbSettingsLowLatencySwitchTip", resourceCulture);
+            }
+        }
+        public static string TbSettingsLowLatencyThreshold {
+            get {
+                return ResourceManager.GetString("TbSettingsLowLatencyThreshold", resourceCulture);
+            }
+        }
+        public static string TbSettingsLowLatencyThresholdTip {
+            get {
+                return ResourceManager.GetString("TbSettingsLowLatencyThresholdTip", resourceCulture);
+            }
+        }
+        public static string TbSettingsLowLatencyMode {
+            get {
+                return ResourceManager.GetString("TbSettingsLowLatencyMode", resourceCulture);
+            }
+        }
+        public static string LowLatencySwitchAuto {
+            get {
+                return ResourceManager.GetString("LowLatencySwitchAuto", resourceCulture);
+            }
+        }
+        public static string LowLatencySwitchManual {
+            get {
+                return ResourceManager.GetString("LowLatencySwitchManual", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   閺屻儲澹樼猾璁虫妧 FakeIP 閻ㄥ嫭婀伴崷鏉垮鐎涙顑佹稉灞傗偓?        /// </summary>
         public static string TbFakeIP {

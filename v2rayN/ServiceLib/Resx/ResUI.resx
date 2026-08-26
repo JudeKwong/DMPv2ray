@@ -897,6 +897,72 @@
   <data name="TbEnableTunAs" xml:space="preserve">
     <value>Enable Tun</value>
   </data>
+  <data name="HomeAutoRun" xml:space="preserve">
+    <value>Auto Run</value>
+  </data>
+  <data name="FavOperate" xml:space="preserve">
+    <value>Favorite updated</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>Favorites</value>
+  </data>
+  <data name="FavOnly" xml:space="preserve">
+    <value>Favorites only</value>
+  </data>
+  <data name="LowLatencySwitch" xml:space="preserve">
+    <value>Low-latency Switch</value>
+  </data>
+  <data name="LowLatencySwitchNotEnabled" xml:space="preserve">
+    <value>Please enable low-latency auto switch in Settings first</value>
+  </data>
+  <data name="LowLatencySwitchInvalidThreshold" xml:space="preserve">
+    <value>Invalid latency threshold</value>
+  </data>
+  <data name="LowLatencySwitchTesting" xml:space="preserve">
+    <value>Testing latency of node “{0}”…</value>
+  </data>
+  <data name="LowLatencySwitchNoDelay" xml:space="preserve">
+    <value>Cannot get latency of the current node</value>
+  </data>
+  <data name="LowLatencySwitchNormal" xml:space="preserve">
+    <value>Current node latency {0} ms, below threshold {1} ms, no switch needed</value>
+  </data>
+  <data name="LowLatencySwitchUpdatingSub" xml:space="preserve">
+    <value>Current node latency {0} ms exceeds threshold {1} ms, updating subscription…</value>
+  </data>
+  <data name="LowLatencySwitchTestingAll" xml:space="preserve">
+    <value>Testing latency of all nodes, please wait…</value>
+  </data>
+  <data name="LowLatencySwitchNoValidNode" xml:space="preserve">
+    <value>No valid node found</value>
+  </data>
+  <data name="LowLatencySwitchConfirm" xml:space="preserve">
+    <value>Found lowest-latency node “{0}” ({1} ms), current node “{2}” ({3} ms). Switch?</value>
+  </data>
+  <data name="LowLatencySwitchDone" xml:space="preserve">
+    <value>Switched to low-latency node “{0}” ({1} ms)</value>
+  </data>
+  <data name="TbSettingsLowLatencySwitch" xml:space="preserve">
+    <value>Enable low-latency auto switch</value>
+  </data>
+  <data name="TbSettingsLowLatencySwitchTip" xml:space="preserve">
+    <value>When enabled, the “Low-latency Switch” button on the node page tests the current node latency, then updates the subscription and switches node if it is too high</value>
+  </data>
+  <data name="TbSettingsLowLatencyThreshold" xml:space="preserve">
+    <value>Low-latency threshold (ms)</value>
+  </data>
+  <data name="TbSettingsLowLatencyThresholdTip" xml:space="preserve">
+    <value>Triggered when the current node latency exceeds this value (ms)</value>
+  </data>
+  <data name="TbSettingsLowLatencyMode" xml:space="preserve">
+    <value>Low-latency switch mode</value>
+  </data>
+  <data name="LowLatencySwitchAuto" xml:space="preserve">
+    <value>Execute automatically</value>
+  </data>
+  <data name="LowLatencySwitchManual" xml:space="preserve">
+    <value>Confirm manually</value>
+  </data>
   <data name="TbSettingsNewPort4LAN" xml:space="preserve">
     <value>New Port for LAN</value>
   </data>

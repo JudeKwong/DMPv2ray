@@ -20,6 +20,7 @@ public partial class ProfilesViewModel : MyReactiveObject
     private readonly Dictionary<string, bool> _dicHeaderSort = new();
     private SpeedtestService? _speedtestService;
     private string? _pendingSelectIndexId;
+    private bool _onlyShowFavorites;
 
     #endregion private prop
 
@@ -42,6 +43,9 @@ public partial class ProfilesViewModel : MyReactiveObject
 
     [Reactive]
     public partial string ServerFilter { get; set; }
+
+    [Reactive]
+    public partial bool OnlyShowFavorites { get; set; }
 
     #endregion ObservableCollection
 
@@ -77,6 +81,8 @@ public partial class ProfilesViewModel : MyReactiveObject
     public ReactiveCommand<RxVoid, RxVoid> RemoveInvalidServerResultCmd { get; }
     public ReactiveCommand<RxVoid, RxVoid> FastRealPingCmd { get; }
     public ReactiveCommand<RxVoid, RxVoid> UpdateCurrentSubCmd { get; }
+    public ReactiveCommand<RxVoid, RxVoid> ToggleFavoriteCmd { get; }
+    public ReactiveCommand<RxVoid, RxVoid> LowLatencySwitchCmd { get; }
 
     //servers export
     public ReactiveCommand<RxVoid, RxVoid> Export2ClientConfigCmd { get; }
@@ -117,6 +123,14 @@ public partial class ProfilesViewModel : MyReactiveObject
           x => x.ServerFilter,
           y => y != null && _serverFilter != y)
               .Subscribe(async c => await ServerFilterChanged(c));
+
+        this.WhenAnyValue(
+            x => x.OnlyShowFavorites)
+                .Subscribe(async c =>
+                {
+                    _onlyShowFavorites = c;
+                    await RefreshServers();
+                });
 
         //servers delete
         EditServerCmd = ReactiveCommand.CreateFromTask(async () =>
@@ -259,6 +273,16 @@ public partial class ProfilesViewModel : MyReactiveObject
             await RefreshServers();
         });
 
+        ToggleFavoriteCmd = ReactiveCommand.CreateFromTask(async () =>
+        {
+            await ToggleFavorite();
+        }, canEditRemove);
+
+                LowLatencySwitchCmd = ReactiveCommand.CreateFromTask(async () =>
+        {
+            await LowLatencySwitchAsync();
+        });
+
         #endregion WhenAnyValue && ReactiveCommand
 
         #region AppEvents
@@ -392,6 +416,11 @@ public partial class ProfilesViewModel : MyReactiveObject
         var lstModel = await GetProfileItemsEx(_config.SubIndexId, _serverFilter);
         _lstProfile = JsonUtils.Deserialize<List<ProfileItem>>(JsonUtils.Serialize(lstModel)) ?? [];
 
+        if (_onlyShowFavorites)
+        {
+            lstModel = lstModel?.Where(t => _config.UiItem.FavoriteIndexIds?.Contains(t.IndexId) ?? false).ToList();
+        }
+
         ProfileItems.Clear();
         ProfileItems.AddRange(lstModel ?? []);
         if (lstModel?.Count > 0)
@@ -459,6 +488,7 @@ public partial class ProfilesViewModel : MyReactiveObject
                         DelayVal = t33?.Delay != 0 ? $"{t33?.Delay}" : string.Empty,
                         SpeedVal = t33?.Speed > 0 ? $"{t33?.Speed}" : t33?.Message ?? string.Empty,
                         IpInfo = t33?.IpInfo ?? string.Empty,
+                        IsFavorite = _config.UiItem.FavoriteIndexIds?.Contains(t.IndexId) ?? false,
                         TodayDown = t22 == null ? "" : Utils.HumanFy(t22.TodayDown),
                         TodayUp = t22 == null ? "" : Utils.HumanFy(t22.TodayUp),
                         TotalDown = t22 == null ? "" : Utils.HumanFy(t22.TotalDown),
@@ -466,6 +496,149 @@ public partial class ProfilesViewModel : MyReactiveObject
                     }).OrderBy(t => t.Sort).ToList();
 
         return lstModel;
+    }
+
+    private async Task ToggleFavorite()
+    {
+        if (SelectedProfile?.IndexId.IsNullOrEmpty() != false)
+        {
+            return;
+        }
+        var favorites = _config.UiItem.FavoriteIndexIds ??= [];
+        var indexId = SelectedProfile.IndexId;
+        if (favorites.Contains(indexId))
+        {
+            favorites.Remove(indexId);
+            SelectedProfile.IsFavorite = false;
+        }
+        else
+        {
+            favorites.Add(indexId);
+            SelectedProfile.IsFavorite = true;
+        }
+        await ConfigHandler.SaveConfig(_config);
+        await RefreshServers();
+        NoticeManager.Instance.SendMessageEx(ResUI.FavOperate);
+    }
+
+    private async Task LowLatencySwitchAsync()
+    {
+        var threshold = _config.UiItem.AutoSwitchLatency;
+        if (!_config.UiItem.EnableAutoSwitchLowLatency)
+        {
+            NoticeManager.Instance.SendMessageEx(ResUI.LowLatencySwitchNotEnabled);
+            return;
+        }
+        if (threshold <= 0)
+        {
+            NoticeManager.Instance.SendMessageEx(ResUI.LowLatencySwitchInvalidThreshold);
+            return;
+        }
+
+        var current = ProfileItems.FirstOrDefault(t => t.IndexId == _config.IndexId);
+        if (current == null)
+        {
+            NoticeManager.Instance.Enqueue(ResUI.ProfileNotFound);
+            return;
+        }
+        var currentRemarks = current.Remarks;
+
+        //Step 1: test current node latency
+        NoticeManager.Instance.SendMessageEx(string.Format(ResUI.LowLatencySwitchTesting, currentRemarks));
+        await ServerSpeedtestAwaitAsync(ESpeedActionType.Realping, [current]);
+
+        current = ProfileItems.FirstOrDefault(t => t.IndexId == _config.IndexId);
+        if (current == null)
+        {
+            return;
+        }
+        if (current.Delay <= 0)
+        {
+            NoticeManager.Instance.SendMessageEx(ResUI.LowLatencySwitchNoDelay);
+            return;
+        }
+        var currentDelay = current.Delay;
+        if (currentDelay <= threshold)
+        {
+            NoticeManager.Instance.SendMessageEx(string.Format(ResUI.LowLatencySwitchNormal, currentDelay, threshold));
+            return;
+        }
+
+        //Step 2: update current subscription
+        if (_config.SubIndexId.IsNullOrEmpty())
+        {
+            NoticeManager.Instance.Enqueue(ResUI.ProfileNotFound);
+            return;
+        }
+        NoticeManager.Instance.SendMessageEx(string.Format(ResUI.LowLatencySwitchUpdatingSub, currentDelay, threshold));
+        Func<bool, string, Task> updateFunc = (success, msg) =>
+        {
+            NoticeManager.Instance.SendMessageEx(msg);
+            return Task.CompletedTask;
+        };
+        await Task.Run(async () => await SubscriptionHandler.UpdateProcess(_config, _config.SubIndexId, false, updateFunc));
+        await RefreshSubscriptions();
+        await RefreshServers();
+
+        //Step 3: test all nodes and pick the lowest latency
+        NoticeManager.Instance.SendMessageEx(ResUI.LowLatencySwitchTestingAll);
+        await ServerSpeedtestAwaitAsync(ESpeedActionType.FastRealping);
+
+        var best = ProfileItems.Where(t => t.Delay > 0).OrderBy(t => t.Delay).FirstOrDefault();
+        if (best is null || best.IndexId.IsNullOrEmpty())
+        {
+            NoticeManager.Instance.SendMessageEx(ResUI.LowLatencySwitchNoValidNode);
+            return;
+        }
+
+        //Step 4: switch node (auto or manual confirm)
+        if (_config.UiItem.AutoSwitchManualConfirm)
+        {
+            var confirmed = await ShowYesNoInteraction.HandleSafe(string.Format(ResUI.LowLatencySwitchConfirm, best.Remarks, best.Delay, currentRemarks, currentDelay));
+            if (!confirmed)
+            {
+                return;
+            }
+        }
+        await SetDefaultServer(best.IndexId);
+        NoticeManager.Instance.SendMessageEx(string.Format(ResUI.LowLatencySwitchDone, best.Remarks, best.Delay));
+    }
+
+    public async Task ServerSpeedtestAwaitAsync(ESpeedActionType actionType, List<ProfileItemModel>? lstModels = null)
+    {
+        List<ProfileItem>? lstSelected;
+        if (lstModels != null)
+        {
+            lstSelected = JsonUtils.Deserialize<List<ProfileItem>>(JsonUtils.Serialize(lstModels));
+        }
+        else if (actionType is ESpeedActionType.Mixedtest or ESpeedActionType.FastRealping)
+        {
+            if (actionType == ESpeedActionType.FastRealping)
+            {
+                actionType = ESpeedActionType.Realping;
+            }
+            lstSelected = JsonUtils.Deserialize<List<ProfileItem>>(JsonUtils.Serialize(ProfileItems?.OrderBy(t => t.Sort)));
+        }
+        else
+        {
+            lstSelected = await GetProfileItems(false);
+        }
+
+        if (lstSelected is null || lstSelected.Count <= 0)
+        {
+            return;
+        }
+
+        _speedtestService ??= new SpeedtestService(_config, async (SpeedTestResult result) =>
+        {
+            RxSchedulers.MainThreadScheduler.Schedule(() =>
+            {
+                _ = SetSpeedTestResult(result);
+            });
+            await Task.CompletedTask;
+        });
+
+        await _speedtestService.RunLoopAsync(actionType, lstSelected);
     }
 
     #endregion Servers && Groups

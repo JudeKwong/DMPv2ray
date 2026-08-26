@@ -99,6 +99,9 @@ public partial class StatusBarViewModel : MyReactiveObject
     public partial bool EnableTun { get; set; }
 
     [Reactive]
+    public partial bool AutoRun { get; set; }
+
+    [Reactive]
     public partial bool BlIsNonWindows { get; set; }
 
     #endregion UI
@@ -120,6 +123,8 @@ public partial class StatusBarViewModel : MyReactiveObject
         {
             _config.TunModeItem.EnableTun = EnableTun = false;
         }
+
+        AutoRun = _config.GuiItem.AutoRun;
 
         #region WhenAnyValue && ReactiveCommand
 
@@ -143,6 +148,11 @@ public partial class StatusBarViewModel : MyReactiveObject
                 x => x.EnableTun,
                 y => y == true)
             .Subscribe(async c => await DoEnableTun(c));
+
+        this.WhenAnyValue(
+                x => x.AutoRun,
+                y => y == true)
+            .Subscribe(async c => await DoAutoRun(c));
 
         CopyProxyCmdToClipboardCmd = ReactiveCommand.CreateFromTask(async () =>
         {
@@ -466,6 +476,18 @@ public partial class StatusBarViewModel : MyReactiveObject
 
         await ConfigHandler.SaveConfig(_config);
         ReloadRequested.Publish();
+    }
+
+    private async Task DoAutoRun(bool c)
+    {
+        if (_config.GuiItem.AutoRun == AutoRun)
+        {
+            return;
+        }
+        _config.GuiItem.AutoRun = AutoRun;
+        await AutoStartupHandler.UpdateTask(_config);
+        await ConfigHandler.SaveConfig(_config);
+        NoticeManager.Instance.SendMessageEx(ResUI.HomeAutoRun);
     }
 
     private bool AllowEnableTun()

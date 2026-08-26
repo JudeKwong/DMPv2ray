@@ -144,6 +144,18 @@
                             IsChecked="{Binding EnableTun, Mode=TwoWay}"
                             Theme="{DynamicResource SimpleToggleSwitch}" />
                     </Grid>
+                    <!-- AutoRun -->
+                    <Grid ColumnDefinitions="Auto,1*,Auto">
+                        <TextBlock
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Text="{x:Static resx:ResUI.HomeAutoRun}" />
+                        <ToggleSwitch
+                            Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            IsChecked="{Binding AutoRun, Mode=TwoWay}"
+                            Theme="{DynamicResource SimpleToggleSwitch}" />
+                    </Grid>
                 </StackPanel>
             </Border>
         </StackPanel>

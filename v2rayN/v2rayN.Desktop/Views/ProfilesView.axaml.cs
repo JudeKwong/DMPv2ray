@@ -70,6 +70,10 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
             this.BindCommand(ViewModel, vm => vm.FastRealPingCmd, v => v.btnFastRealPing).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.UpdateCurrentSubCmd, v => v.btnUpdateCurrentSub).DisposeWith(disposables);
 
+            this.Bind(ViewModel, vm => vm.OnlyShowFavorites, v => v.btnOnlyFavorites.IsChecked).DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.ToggleFavoriteCmd, v => v.menuToggleFavorite).DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.LowLatencySwitchCmd, v => v.btnLowLatencySwitch).DisposeWith(disposables);
+
             //servers export
             this.BindCommand(ViewModel, vm => vm.Export2ClientConfigCmd, v => v.menuExport2ClientConfig).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.Export2ClientConfigClipboardCmd, v => v.menuExport2ClientConfigClipboard).DisposeWith(disposables);

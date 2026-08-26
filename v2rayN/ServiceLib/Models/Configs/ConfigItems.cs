@@ -105,6 +105,10 @@ public class UIItem
     public List<WindowSizeItem> WindowSizeItem { get; set; }
     public bool HideColumnIpInfo { get; set; }
     public int MainTabSelectedIndex { get; set; }
+    public List<string> FavoriteIndexIds { get; set; } = [];
+    public bool EnableAutoSwitchLowLatency { get; set; }
+    public int AutoSwitchLatency { get; set; } = 500;
+    public bool AutoSwitchManualConfirm { get; set; }
 }
 
 [Serializable]

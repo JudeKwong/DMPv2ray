@@ -897,6 +897,72 @@
   <data name="TbEnableTunAs" xml:space="preserve">
     <value>启用 Tun</value>
   </data>
+  <data name="HomeAutoRun" xml:space="preserve">
+    <value>开机自启</value>
+  </data>
+  <data name="FavOperate" xml:space="preserve">
+    <value>已更新收藏</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>收藏</value>
+  </data>
+  <data name="FavOnly" xml:space="preserve">
+    <value>只看收藏</value>
+  </data>
+  <data name="LowLatencySwitch" xml:space="preserve">
+    <value>低延迟切换</value>
+  </data>
+  <data name="LowLatencySwitchNotEnabled" xml:space="preserve">
+    <value>请先在「设置→选项设置」中启用低延迟自动切换</value>
+  </data>
+  <data name="LowLatencySwitchInvalidThreshold" xml:space="preserve">
+    <value>延迟阈值设置无效</value>
+  </data>
+  <data name="LowLatencySwitchTesting" xml:space="preserve">
+    <value>正在测试节点「{0}」延迟…</value>
+  </data>
+  <data name="LowLatencySwitchNoDelay" xml:space="preserve">
+    <value>无法获取当前节点延迟</value>
+  </data>
+  <data name="LowLatencySwitchNormal" xml:space="preserve">
+    <value>当前节点延迟 {0} ms，未超过阈值 {1} ms，无需切换</value>
+  </data>
+  <data name="LowLatencySwitchUpdatingSub" xml:space="preserve">
+    <value>当前节点延迟 {0} ms 超过阈值 {1} ms，正在更新订阅…</value>
+  </data>
+  <data name="LowLatencySwitchTestingAll" xml:space="preserve">
+    <value>正在测试全部节点延迟，请稍候…</value>
+  </data>
+  <data name="LowLatencySwitchNoValidNode" xml:space="preserve">
+    <value>未找到有效节点</value>
+  </data>
+  <data name="LowLatencySwitchConfirm" xml:space="preserve">
+    <value>检测到最低延迟节点「{0}」({1} ms)，当前节点「{2}」({3} ms)，是否切换？</value>
+  </data>
+  <data name="LowLatencySwitchDone" xml:space="preserve">
+    <value>已切换到低延迟节点「{0}」({1} ms)</value>
+  </data>
+  <data name="TbSettingsLowLatencySwitch" xml:space="preserve">
+    <value>启用低延迟自动切换</value>
+  </data>
+  <data name="TbSettingsLowLatencySwitchTip" xml:space="preserve">
+    <value>开启后，节点页的「低延迟切换」按钮会检测当前节点延迟，过高时自动更新订阅并切换节点</value>
+  </data>
+  <data name="TbSettingsLowLatencyThreshold" xml:space="preserve">
+    <value>低延迟切换阈值(ms)</value>
+  </data>
+  <data name="TbSettingsLowLatencyThresholdTip" xml:space="preserve">
+    <value>当当前节点延迟超过此值(毫秒)时触发</value>
+  </data>
+  <data name="TbSettingsLowLatencyMode" xml:space="preserve">
+    <value>低延迟切换方式</value>
+  </data>
+  <data name="LowLatencySwitchAuto" xml:space="preserve">
+    <value>自动执行</value>
+  </data>
+  <data name="LowLatencySwitchManual" xml:space="preserve">
+    <value>手动确认</value>
+  </data>
   <data name="TbSettingsNewPort4LAN" xml:space="preserve">
     <value>为局域网开启新的端口</value>
   </data>

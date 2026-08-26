@@ -59,6 +59,7 @@ public partial class OptionSettingWindow : WindowBase<OptionSettingViewModel>
         cmbRootCertificateProvider.ItemsSource = Global.RootCertProviders;
 
         cmbMainGirdOrientation.ItemsSource = Utils.GetEnumNames<EGirdOrientation>();
+        cmbLowLatencySwitchMode.ItemsSource = new List<string> { ResUI.LowLatencySwitchAuto, ResUI.LowLatencySwitchManual };
 
         _ = InitSettingFont();
 
@@ -115,6 +116,9 @@ public partial class OptionSettingWindow : WindowBase<OptionSettingViewModel>
             this.Bind(ViewModel, vm => vm.RoutingRulesSourceUrl, v => v.cmbRoutingRulesSourceUrl.Text).DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.IPAPIUrl, v => v.cmbIPAPIUrl.Text).DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.RootCertProvider, v => v.cmbRootCertificateProvider.SelectedValue).DisposeWith(disposables);
+            this.Bind(ViewModel, vm => vm.LowLatencySwitchEnabled, v => v.togLowLatencySwitch.IsChecked).DisposeWith(disposables);
+            this.Bind(ViewModel, vm => vm.LowLatencyThreshold, v => v.txtLowLatencyThreshold.Text).DisposeWith(disposables);
+            this.Bind(ViewModel, vm => vm.LowLatencySwitchMode, v => v.cmbLowLatencySwitchMode.SelectedIndex).DisposeWith(disposables);
 
             this.Bind(ViewModel, vm => vm.NotProxyLocalAddress, v => v.tognotProxyLocalAddress.IsChecked).DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.SystemProxyAdvancedProtocol, v => v.cmbsystemProxyAdvancedProtocol.SelectedValue).DisposeWith(disposables);

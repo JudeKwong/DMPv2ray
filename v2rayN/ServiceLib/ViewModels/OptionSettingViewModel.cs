@@ -63,6 +63,9 @@ public partial class OptionSettingViewModel : MyReactiveObject, ICloseable
     [Reactive] public partial string RoutingRulesSourceUrl { get; set; }
     [Reactive] public partial string IPAPIUrl { get; set; }
     [Reactive] public partial string RootCertProvider { get; set; }
+    [Reactive] public partial bool LowLatencySwitchEnabled { get; set; }
+    [Reactive] public partial int LowLatencyThreshold { get; set; }
+    [Reactive] public partial int LowLatencySwitchMode { get; set; }
 
     #endregion UI
 
@@ -193,6 +196,9 @@ public partial class OptionSettingViewModel : MyReactiveObject, ICloseable
         RoutingRulesSourceUrl = _config.ConstItem.RouteRulesTemplateSourceUrl;
         IPAPIUrl = _config.SpeedTestItem.IPAPIUrl;
         RootCertProvider = _config.GuiItem.RootCertProvider;
+        LowLatencySwitchEnabled = _config.UiItem.EnableAutoSwitchLowLatency;
+        LowLatencyThreshold = _config.UiItem.AutoSwitchLatency;
+        LowLatencySwitchMode = _config.UiItem.AutoSwitchManualConfirm ? 1 : 0;
 
         #endregion UI
 
@@ -365,6 +371,9 @@ public partial class OptionSettingViewModel : MyReactiveObject, ICloseable
         _config.ConstItem.RouteRulesTemplateSourceUrl = RoutingRulesSourceUrl;
         _config.SpeedTestItem.IPAPIUrl = IPAPIUrl;
         _config.GuiItem.RootCertProvider = RootCertProvider;
+        _config.UiItem.EnableAutoSwitchLowLatency = LowLatencySwitchEnabled;
+        _config.UiItem.AutoSwitchLatency = LowLatencyThreshold;
+        _config.UiItem.AutoSwitchManualConfirm = LowLatencySwitchMode == 1;
 
         //systemProxy
         _config.SystemProxyItem.SystemProxyExceptions = SystemProxyExceptions;

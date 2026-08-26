@@ -21,6 +21,27 @@ public class SpeedtestService(Config config, Func<SpeedTestResult, Task> updateF
         });
     }
 
+    public Task RunLoopAsync(ESpeedActionType actionType, List<ProfileItem> selecteds)
+    {
+        var tcs = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        Task.Run(async () =>
+        {
+            try
+            {
+                await RunAsync(actionType, selecteds);
+                await ProfileExManager.Instance.SaveTo();
+                await UpdateFunc("", ResUI.SpeedtestingCompleted);
+                tcs.TrySetResult();
+            }
+            catch (Exception ex)
+            {
+                Logging.SaveLog(_tag, ex);
+                tcs.TrySetException(ex);
+            }
+        });
+        return tcs.Task;
+    }
+
     public void ExitLoop()
     {
         if (!_lstExitLoop.IsEmpty)
