@@ -2,6 +2,8 @@
 
 > A modern-UI proxy client built on v2rayN. 一款基于 v2rayN 开发的现代化界面代理客户端。
 
+🌐 **官网 / Official Website**: [https://dmpv2ray.judekwong.com](https://dmpv2ray.judekwong.com)
+
 DMPv2ray 是一款基于开源项目 [v2rayN](https://github.com/2dust/v2rayN) 二次开发的跨平台代理客户端。在保留 v2rayN 强大的多内核支持（Xray、sing-box、Mihomo）与完整功能的同时，我们对用户界面进行了现代化重构，使操作更加简洁直观。
 
 DMPv2ray is a cross-platform proxy client built upon the open-source project [v2rayN](https://github.com/2dust/v2rayN). While preserving v2rayN's powerful multi-core support (Xray, sing-box, and Mihomo) and full feature set, it delivers a modernized, redesigned user interface that is cleaner and more intuitive.

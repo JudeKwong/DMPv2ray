@@ -421,3 +421,6 @@ _inno/
 
 # Legacy WPF project (replaced by v2rayN.Desktop, not built)
 v2rayN/v2rayN/
+
+# Cloudflare Wrangler local cache (website deployment)
+.wrangler/
